@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfluConnect - Premium Influencer Marketing Platform</title>
+    <title>Fluence Pluse - Premium Influencer Marketing Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-start: #667eea;
+            --primary-end: #764ba2;
+            --text-dark: #111827;
+            --text-light: #e5e7eb;
+            --text-muted: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-dark: #1a202c;
+            --border-light: #e2e8f0;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 15px 30px rgba(102, 126, 234, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-dark);
+            background-color: white;
             overflow-x: hidden;
         }
 
@@ -25,26 +48,41 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            opacity: 0.1;
+            height: 100vh;
+            z-index: -10;
+            overflow: hidden;
+            background: #f0f2ff;
         }
 
-        .animated-bg::before {
-            content: '';
+        .blob {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-start);
+            top: -150px;
+            left: -150px;
+            animation: float 25s infinite alternate;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-end);
+            bottom: -100px;
+            right: -100px;
+            animation: float 30s infinite alternate;
+            animation-delay: -5s;
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 50px) scale(1.2); }
         }
 
         /* Header */
@@ -52,11 +90,19 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: var(--border-light);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
 
         nav {
@@ -71,7 +117,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -85,14 +131,15 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: var(--text-dark);
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            padding-bottom: 5px;
         }
 
         .nav-links a:hover {
-            color: #667eea;
+            color: var(--primary-start);
         }
 
         .nav-links a::after {
@@ -100,9 +147,10 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
             transition: width 0.3s ease;
         }
 
@@ -111,7 +159,7 @@
         }
 
         .cta-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
             color: white;
             padding: 0.7rem 1.5rem;
             border: none;
@@ -124,8 +172,8 @@
         }
 
         .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Hero Section */
@@ -134,24 +182,9 @@
             display: flex;
             align-items: center;
             padding-top: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            color: var(--text-dark);
             position: relative;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            animation: grain 20s linear infinite;
-        }
-
-        @keyframes grain {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100px, -100px); }
         }
 
         .hero-content {
@@ -167,128 +200,114 @@
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            animation: fadeInUp 1s ease;
+            background: linear-gradient(135deg, var(--primary-start) 20%, var(--primary-end) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 1s ease-out;
         }
 
         .hero-text p {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
+            margin-bottom: 2.5rem;
+            color: var(--text-muted);
+            max-width: 550px;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 1s ease 0.4s both;
-        }
+        
+        .hero-buttons { animation: fadeInUp 1s ease 0.4s both; }
 
         .btn-primary, .btn-secondary {
             padding: 1rem 2rem;
-            border: none;
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            border: 2px solid transparent;
         }
 
         .btn-primary {
-            background: white;
-            color: #667eea;
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+            color: white;
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
+            background: white;
+            color: var(--primary-start);
+            border-color: var(--border-light);
         }
 
         .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25);
         }
 
         .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeInRight 1s ease 0.6s both;
+            perspective: 1000px;
+            animation: fadeInRight 1s ease-out 0.6s both;
         }
 
         .floating-cards {
             position: relative;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
+            transform-style: preserve-3d;
+            transform: rotateY(-15deg) rotateX(10deg);
         }
 
         .card {
             position: absolute;
-            width: 180px;
-            height: 120px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: floatCard 6s ease-in-out infinite;
+            width: 220px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.3s ease;
         }
+        .card:hover { transform: translateY(-10px) scale(1.05); z-index: 10; }
+        .card-header { display: flex; align-items: center; gap: 0.75rem; }
+        .card-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #ddd; object-fit: cover; }
+        .card-info h4 { font-size: 1rem; margin: 0; color: var(--text-dark); }
+        .card-info p { font-size: 0.8rem; margin: 0; color: var(--text-muted); }
+        .card-button { background: var(--primary-start); color: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
 
-        .card:nth-child(1) {
-            top: 20px;
-            left: 20px;
-            animation-delay: 0s;
-        }
-
-        .card:nth-child(2) {
-            top: 50px;
-            right: 20px;
-            animation-delay: 2s;
-        }
-
-        .card:nth-child(3) {
-            bottom: 80px;
-            left: 50px;
-            animation-delay: 4s;
-        }
+        .card:nth-child(1) { top: 0; left: 0; animation: floatCard 8s ease-in-out infinite; }
+        .card:nth-child(2) { top: 80px; right: 0; animation: floatCard 10s ease-in-out infinite 2s; }
+        .card:nth-child(3) { bottom: 50px; left: 100px; animation: floatCard 9s ease-in-out infinite 4s; }
 
         @keyframes floatCard {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-25px) rotate(3deg); }
         }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        
+        /* Section General Styles */
+        .section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 0;
-            background: #f8fafc;
-        }
+        .section:nth-child(even) { background-color: var(--bg-light); }
 
         .container {
             max-width: 1200px;
@@ -296,25 +315,11 @@
             padding: 0 2rem;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 1rem;
-        }
-
-        .section-title p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
+        .section-title { text-align: center; margin-bottom: 4rem; }
+        .section-title h2 { font-size: 2.8rem; font-weight: 800; color: var(--text-dark); margin-bottom: 1rem; }
+        .section-title p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        
+        /* Features Section */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -323,219 +328,149 @@
 
         .feature-card {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-lg);
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
         }
-
-        .feature-icon i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1a202c;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
+        .feature-icon i { font-size: 1.8rem; color: white; }
+        .feature-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
+        .feature-card p { color: var(--text-muted); line-height: 1.7; }
+        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-10deg); }
 
         /* Platform Sections */
-        .platform-section {
-            padding: 5rem 0;
-        }
-
-        .platform-section:nth-child(even) {
-            background: #f8fafc;
-        }
-
         .platform-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
             align-items: center;
         }
-
-        .platform-text h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #1a202c;
+        .platform-content--reverse .platform-text { order: 2; }
+        .platform-text h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--text-dark); }
+        .platform-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.7; }
+        .platform-features { list-style: none; margin-bottom: 2.5rem; }
+        .platform-features li { padding: 0.5rem 0; display: flex; align-items: center; color: var(--text-muted); font-weight: 500; }
+        .platform-features li i { color: var(--primary-start); margin-right: 1rem; width: 20px; font-size: 1.2rem; }
+        
+        /* For Influencers Visual */
+        .phone-mockup {
+            background: #111;
+            padding: 1rem;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2), inset 0 0 0 2px #333;
+            transform: rotate(-5deg);
         }
-
-        .platform-text p {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .platform-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .platform-features li {
-            padding: 0.5rem 0;
+        .phone-screen {
+            background: #fff;
+            border-radius: 30px;
+            padding: 1.5rem;
+            height: 500px;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            color: #666;
+            gap: 1.5rem;
         }
-
-        .platform-features li i {
-            color: #667eea;
-            margin-right: 1rem;
-            width: 20px;
-        }
-
-        .platform-visual {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        .notification-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            width: 100%;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
+        .notification-card .logo { font-size: 1.5rem; }
+        .notification-card h4 { margin-top: 1rem; font-size: 1.2rem; }
+        .notification-card p { margin-top: 0.5rem; color: var(--text-muted); }
 
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+        /* For Brands Visual */
+        .dashboard-mockup {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-light);
+            transform: rotate(3deg);
         }
-
-        .social-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-10px) scale(1.1);
-        }
-
-        .instagram { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
-        .twitter { background: linear-gradient(45deg, #1da1f2, #0d8bd9); }
-        .linkedin { background: linear-gradient(45deg, #0077b5, #005582); }
-
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .dashboard-header h4 { color: var(--text-dark); }
+        .dashboard-header span { background: var(--primary-start); color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.9rem; }
+        .stat-item { text-align: center; margin: 1rem 0; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: var(--primary-start); }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); }
+        .progress-bar { height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+        .progress { height: 100%; width: 75%; background: linear-gradient(90deg, var(--primary-start), var(--primary-end)); }
+        
         /* Contact Section */
         .contact {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            color: white;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #1f2937, var(--bg-dark));
+            color: var(--text-light);
         }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .contact-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .contact-details {
-            list-style: none;
-        }
-
-        .contact-details li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-details i {
-            margin-right: 1rem;
-            width: 20px;
-            color: #667eea;
-        }
-
+        .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .contact-info h2 { font-size: 2.8rem; margin-bottom: 1.5rem; }
+        .contact-info p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.8; }
+        .contact-details { list-style: none; }
+        .contact-details li { display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem; }
+        .contact-details i { margin-right: 1rem; width: 20px; color: var(--primary-start); }
+        
         .contact-form {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-start);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
         }
-
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
             color: white;
             border: none;
             border-radius: 10px;
@@ -544,107 +479,49 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        #form-feedback { text-align: center; margin-top: 1rem; font-weight: 500; }
 
         /* Footer */
-        footer {
-            background: #1a202c;
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: #a0aec0;
-            text-decoration: none;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #2d3748;
-            padding-top: 2rem;
-            text-align: center;
-            color: #a0aec0;
-        }
-
+        footer { background: var(--bg-dark); color: var(--text-light); padding: 4rem 0 2rem; }
+        .footer-content { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; }
+        .footer-section h3 { margin-bottom: 1.5rem; color: white; }
+        .footer-section p { color: #a0aec0; margin-bottom: 1.5rem; }
+        .footer-section a { color: #a0aec0; text-decoration: none; margin-bottom: 0.75rem; display: block; transition: color 0.3s ease; }
+        .footer-section a:hover { color: var(--primary-start); }
+        .footer-socials { display: flex; gap: 1rem; }
+        .footer-socials a { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; font-size: 1rem; transition: background 0.3s ease; }
+        .footer-socials a:hover { background: var(--primary-start); }
+        .footer-bottom { border-top: 1px solid #2d3748; padding-top: 2rem; text-align: center; color: #a0aec0; }
+        
         /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .platform-content { grid-template-columns: 1fr; }
+            .platform-content--reverse .platform-text { order: 0; }
+            .phone-mockup, .dashboard-mockup { transform: rotate(0); margin-top: 3rem; }
+        }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .platform-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .floating-cards {
-                width: 300px;
-                height: 300px;
-            }
-        }
-
-        /* Animations */
-        .slide-in {
-            animation: slideIn 0.6s ease forwards;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            .nav-links { display: none; } /* In a real project, replace with a hamburger menu */
+            .hero-content, .contact-content, .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-buttons { flex-direction: column; align-items: center; gap: 1rem; }
+            .floating-cards { display: none; } /* Hide complex animation on small devices for performance */
+            .footer-content { text-align: left; }
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
+    <div class="animated-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
-    <header>
+    <header id="header">
         <nav>
             <div class="logo">Fluence Pluse</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#features">Service</a></li>
+                <li><a href="#features">Features</a></li>
                 <li><a href="#influencers">For Influencers</a></li>
                 <li><a href="#brands">For Brands</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -658,7 +535,7 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Connect. Create. Conquer.</h1>
-                    <p>The ultimate platform connecting brands with authentic influencers. Drive real engagement, build meaningful partnerships, and achieve unprecedented marketing success.</p>
+                    <p>The ultimate platform connecting brands with authentic influencers. Drive real engagement and achieve unprecedented marketing success.</p>
                     <div class="hero-buttons">
                         <a href="#influencers" class="btn-primary">I'm an Influencer</a>
                         <a href="#brands" class="btn-secondary">I'm a Brand</a>
@@ -666,147 +543,121 @@
                 </div>
                 <div class="hero-visual">
                     <div class="floating-cards">
-                        <div class="card">
-                            <i class="fab fa-instagram" style="color: #e1306c; font-size: 2rem;"></i>
-                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Instagram Campaigns</p>
+                         <div class="card">
+                            <div class="card-header">
+                                <img src="https://i.pravatar.cc/50?img=1" alt="Avatar" class="card-avatar">
+                                <div class="card-info"><h4>Anna Lee</h4><p>Fashion Blogger</p></div>
+                            </div>
+                            <button class="card-button">Connect</button>
                         </div>
                         <div class="card">
-                            <i class="fab fa-twitter" style="color: #1da1f2; font-size: 2rem;"></i>
-                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Twitter Engagement</p>
+                             <div class="card-header">
+                                <img src="https://i.pravatar.cc/50?img=2" alt="Avatar" class="card-avatar">
+                                <div class="card-info"><h4>Mark Tech</h4><p>Gadget Reviewer</p></div>
+                            </div>
+                            <button class="card-button">Connect</button>
                         </div>
                         <div class="card">
-                            <i class="fab fa-linkedin" style="color: #0077b5; font-size: 2rem;"></i>
-                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">LinkedIn Growth</p>
+                             <div class="card-header">
+                                <img src="https://i.pravatar.cc/50?img=3" alt="Avatar" class="card-avatar">
+                                <div class="card-info"><h4>Fit Flora</h4><p>Fitness Coach</p></div>
+                            </div>
+                            <button class="card-button">Connect</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="features">
+        <section id="features" class="section">
             <div class="container">
                 <div class="section-title">
-                    <h2>Why Choose InfluConnect?</h2>
-                    <p>Experience the future of influencer marketing with our cutting-edge platform designed for success</p>
+                    <h2>The Future of Influence</h2>
+                    <p>Our cutting-edge platform is engineered for seamless collaboration and measurable results.</p>
                 </div>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                    <div class="feature-card anim-stagger">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                         <h3>Advanced Analytics</h3>
-                        <p>Track performance, measure ROI, and optimize campaigns with real-time data insights and comprehensive reporting tools.</p>
+                        <p>Track performance with real-time data insights and comprehensive reporting tools.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3>Smart Matching</h3>
-                        <p>Our AI-powered algorithm connects brands with the perfect influencers based on audience, engagement, and brand alignment.</p>
+                    <div class="feature-card anim-stagger">
+                        <div class="feature-icon"><i class="fas fa-magic"></i></div>
+                        <h3>AI-Powered Matching</h3>
+                        <p>Our algorithm connects brands with perfect influencers based on audience and brand alignment.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Secure Payments</h3>
-                        <p>Protected transactions with escrow services, automated payments, and transparent pricing for peace of mind.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>Multi-Platform</h3>
-                        <p>Manage campaigns across Instagram, Twitter, LinkedIn, and more from one unified dashboard.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Campaign Management</h3>
-                        <p>Streamlined workflow from briefing to delivery with collaboration tools and milestone tracking.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3>24/7 Support</h3>
-                        <p>Dedicated support team available around the clock to help you succeed and resolve any issues quickly.</p>
+                    <div class="feature-card anim-stagger">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Secure & Automated</h3>
+                        <p>Protected transactions with escrow, automated payments, and transparent pricing.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="influencers" class="platform-section">
+        <section id="influencers" class="section">
             <div class="container">
                 <div class="platform-content">
+                    <div class="platform-visual">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="notification-card">
+                                    <div class="logo">Fluence Pluse</div>
+                                    <h4>New Partnership!</h4>
+                                    <p>Nike wants to collaborate on their new sneaker launch.</p>
+                                    <a href="#" class="cta-btn" style="margin-top: 1rem;">View Offer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="platform-text">
                         <h2>For Influencers</h2>
-                        <p>Transform your passion into profit. Connect with premium brands, negotiate fair rates, and build lasting partnerships that align with your values and audience.</p>
+                        <p>Transform your passion into profit. Connect with premium brands, negotiate fair rates, and build lasting partnerships that align with your values.</p>
                         <ul class="platform-features">
-                            <li><i class="fas fa-check"></i> Direct brand partnerships</li>
-                            <li><i class="fas fa-check"></i> Transparent pricing control</li>
-                            <li><i class="fas fa-check"></i> Content ownership rights</li>
-                            <li><i class="fas fa-check"></i> Performance analytics</li>
-                            <li><i class="fas fa-check"></i> Secure payment system</li>
+                            <li><i class="fas fa-check-circle"></i> Direct brand partnerships</li>
+                            <li><i class="fas fa-check-circle"></i> Transparent pricing control</li>
+                            <li><i class="fas fa-check-circle"></i> Secure & fast payments</li>
                         </ul>
                         <a href="#contact" class="cta-btn">Join as Influencer</a>
                     </div>
-                    <div class="platform-visual">
-                        <h3>Connect Your Social Media</h3>
-                        <div class="social-icons">
-                            <div class="social-icon instagram">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <div class="social-icon twitter">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                            <div class="social-icon linkedin">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                        </div>
-                        <p>Link your profiles and start collaborating with top brands today</p>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="brands" class="platform-section">
+        <section id="brands" class="section">
             <div class="container">
-                <div class="platform-content">
-                    <div class="platform-visual">
-                        <h3>Campaign Management Dashboard</h3>
-                        <div style="background: #f8fafc; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                <h4 style="color: #1a202c;">Active Campaigns</h4>
-                                <span style="background: #667eea; color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.9rem;">24 Running</span>
+                <div class="platform-content platform-content--reverse">
+                     <div class="platform-visual">
+                        <div class="dashboard-mockup">
+                            <div class="dashboard-header">
+                                <h4>Active Campaigns</h4>
+                                <span>24 Running</span>
                             </div>
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
-                                <div>
-                                    <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">2.5M</div>
-                                    <div style="font-size: 0.9rem; color: #666;">Total Reach</div>
+                            <div class="stat-item">
+                                <div class="stat-label">Campaign Progress</div>
+                                <div class="progress-bar"><div class="progress"></div></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-around;">
+                                <div class="stat-item">
+                                    <div class="stat-value">4.2%</div>
+                                    <div class="stat-label">Engagement</div>
                                 </div>
-                                <div>
-                                    <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">4.2%</div>
-                                    <div style="font-size: 0.9rem; color: #666;">Engagement</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">$2.1K</div>
-                                    <div style="font-size: 0.9rem; color: #666;">ROI</div>
+                                 <div class="stat-item">
+                                    <div class="stat-value">3.5x</div>
+                                    <div class="stat-label">ROI</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="platform-text">
                         <h2>For Brands</h2>
-                        <p>Scale your marketing efforts with authentic influencer partnerships. Access detailed analytics, manage campaigns efficiently, and achieve measurable results that drive growth.</p>
+                        <p>Scale your marketing with authentic influencer partnerships. Access detailed analytics, manage campaigns efficiently, and achieve measurable growth.</p>
                         <ul class="platform-features">
-                            <li><i class="fas fa-check"></i> Curated influencer database</li>
-                            <li><i class="fas fa-check"></i> Campaign tracking tools</li>
-                            <li><i class="fas fa-check"></i> ROI measurement</li>
-                            <li><i class="fas fa-check"></i> Content approval workflow</li>
-                            <li><i class="fas fa-check"></i> Budget management</li>
+                            <li><i class="fas fa-check-circle"></i> Curated influencer database</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time campaign tracking</li>
+                            <li><i class="fas fa-check-circle"></i> Guaranteed ROI measurement</li>
                         </ul>
-                        <a href="#contact" class="cta-btn">Start Campaign</a>
+                        <a href="#contact" class="cta-btn">Start a Campaign</a>
                     </div>
                 </div>
             </div>
@@ -816,46 +667,32 @@
             <div class="container">
                 <div class="contact-content">
                     <div class="contact-info">
-                        <h2>Get Started Today</h2>
-                        <p>Ready to revolutionize your marketing strategy? Join thousands of successful brands and influencers already using InfluConnect.</p>
+                        <h2>Let's Get Started</h2>
+                        <p>Ready to revolutionize your marketing? Fill out the form or contact us directly. We're here to help you succeed.</p>
                         <ul class="contact-details">
-                            <li><i class="fas fa-envelope"></i> hello@influconnect.com</li>
+                            <li><i class="fas fa-envelope"></i> hello@Fluence Pluse.com</li>
                             <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                            <li><i class="fas fa-map-marker-alt"></i> San Francisco, CA</li>
-                            <li><i class="fas fa-clock"></i> 24/7 Support Available</li>
                         </ul>
                     </div>
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
-                            <label for="userType">I am a:</label>
-                            <select id="userType" name="userType" required>
-                                <option value="">Select your role</option>
-                                <option value="influencer">Influencer</option>
-                                <option value="brand">Brand/Company</option>
-                                <option value="agency">Marketing Agency</option>
-                            </select>
+                            <label for="userType">I am a...</label>
+                            <select id="userType" name="userType" required><option value="">Select your role</option><option value="influencer">Influencer</option><option value="brand">Brand/Company</option></select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Full Name:</label>
+                            <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address:</label>
+                            <label for="email">Email Address</label>
                             <input type="email" id="email" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
-                            <label for="company">Company/Brand (optional):</label>
-                            <input type="text" id="company" name="company" placeholder="Your company name">
+                            <label for="message">Tell us about your goals</label>
+                            <textarea id="message" name="message" rows="3" placeholder="What are you looking to achieve?" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="social">Primary Social Media Handle:</label>
-                            <input type="text" id="social" name="social" placeholder="@yourusername">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Tell us about your goals:</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Describe what you're looking to achieve..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message & Get Started</button>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <div id="form-feedback"></div>
                     </form>
                 </div>
             </div>
@@ -866,247 +703,104 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>InfluConnect</h3>
-                    <p>The premier platform for authentic influencer marketing partnerships. Connect, create, and conquer the digital landscape.</p>
-                    <div class="social-icons" style="justify-content: flex-start; margin-top: 1rem;">
-                        <div class="social-icon instagram" style="width: 40px; height: 40px; font-size: 1rem;">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <div class="social-icon twitter" style="width: 40px; height: 40px; font-size: 1rem;">
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                        <div class="social-icon linkedin" style="width: 40px; height: 40px; font-size: 1rem;">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
+                    <h3>Fluence Pluse</h3>
+                    <p>Empowering authentic connections in digital marketing.</p>
+                     <div class="footer-socials">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h3>For Influencers</h3>
-                    <a href="#influencers">Join Platform</a>
+                    <h3>Platform</h3>
                     <a href="#features">Features</a>
-                    <a href="#contact">Pricing</a>
-                    <a href="#contact">Success Stories</a>
-                    <a href="#contact">Resources</a>
+                    <a href="#influencers">For Influencers</a>
+                    <a href="#brands">For Brands</a>
                 </div>
                 <div class="footer-section">
-                    <h3>For Brands</h3>
-                    <a href="#brands">Start Campaign</a>
-                    <a href="#features">Analytics</a>
-                    <a href="#contact">Case Studies</a>
-                    <a href="#contact">API Access</a>
-                    <a href="#contact">Enterprise</a>
+                    <h3>Company</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
                 </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <a href="#contact">Contact Us</a>
-                    <a href="#contact">Help Center</a>
-                    <a href="#contact">Documentation</a>
-                    <a href="#contact">Privacy Policy</a>
-                    <a href="#contact">Terms of Service</a>
+                 <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 InfluConnect. All rights reserved. Empowering authentic connections in digital marketing.</p>
+                <p>&copy; 2025 Fluence Pluse. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.section').forEach(section => {
+                sectionObserver.observe(section);
+            });
+            
+            // Staggered animation observer
+            const staggerObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transitionDelay = `${index * 150}ms`;
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            document.querySelectorAll('.anim-stagger').forEach(el => {
+                 staggerObserver.observe(el);
+            });
+
+            // Contact form handling
+            const contactForm = document.getElementById('contactForm');
+            const formFeedback = document.getElementById('form-feedback');
+
+            contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+                const submitBtn = this.querySelector('.submit-btn');
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = 'none';
-            }
-        });
+                // Simulate form submission
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('slide-in');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all feature cards and platform sections
-        document.querySelectorAll('.feature-card, .platform-section').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Contact form handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Create email content
-            const subject = `New ${data.userType} inquiry from InfluConnect`;
-            const body = `
-Name: ${data.name}
-Email: ${data.email}
-Role: ${data.userType}
-Company: ${data.company || 'Not specified'}
-Social Media: ${data.social || 'Not specified'}
-
-Message:
-${data.message}
-
----
-This inquiry was submitted through the InfluConnect contact form.
-            `;
-            
-            // Create mailto link
-            const mailtoLink = `mailto:hello@influconnect.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            const button = this.querySelector('.submit-btn');
-            const originalText = button.textContent;
-            button.textContent = 'Email Client Opening...';
-            button.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
-            }, 3000);
-        });
-
-        // Social media icon interactions
-        document.querySelectorAll('.social-icon').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const platform = this.classList[1]; // get the platform class
-                let url = '';
-                
-                switch(platform) {
-                    case 'instagram':
-                        url = 'https://instagram.com';
-                        break;
-                    case 'twitter':
-                        url = 'https://twitter.com';
-                        break;
-                    case 'linkedin':
-                        url = 'https://linkedin.com';
-                        break;
-                }
-                
-                if (url) {
-                    window.open(url, '_blank');
-                }
-            });
-        });
-
-        // Dynamic user type form adjustments
-        document.getElementById('userType').addEventListener('change', function() {
-            const companyField = document.getElementById('company');
-            const companyLabel = companyField.previousElementSibling;
-            
-            if (this.value === 'influencer') {
-                companyLabel.textContent = 'Brand/Channel Name (optional):';
-                companyField.placeholder = 'Your brand or channel name';
-            } else if (this.value === 'brand') {
-                companyLabel.textContent = 'Company/Brand:';
-                companyField.placeholder = 'Your company name';
-                companyField.required = true;
-            } else if (this.value === 'agency') {
-                companyLabel.textContent = 'Agency Name:';
-                companyField.placeholder = 'Your agency name';
-                companyField.required = true;
-            }
-        });
-
-        // Parallax effect for hero background
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Floating cards animation enhancement
-        const cards = document.querySelectorAll('.card');
-        cards.forEach((card, index) => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-30px) rotate(10deg) scale(1.05)';
-                card.style.zIndex = '10';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-                card.style.zIndex = '';
-            });
-        });
-
-        // Feature cards hover effect enhancement
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-15px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-        });
-
-        // Loading animation for CTA buttons
-        document.querySelectorAll('.cta-btn, .btn-primary, .btn-secondary').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    return; // Let anchor links work normally
-                }
-                
-                e.preventDefault();
-                const originalText = this.textContent;
-                this.textContent = 'Loading...';
-                this.style.pointerEvents = 'none';
-                
                 setTimeout(() => {
-                    this.textContent = originalText;
-                    this.style.pointerEvents = 'auto';
-                }, 2000);
+                    this.reset();
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                    formFeedback.textContent = 'Thank you! Your message has been sent.';
+                    formFeedback.style.color = '#48bb78'; // Green for success
+                    
+                    setTimeout(() => {
+                        formFeedback.textContent = '';
+                    }, 5000);
+                }, 1500);
             });
-        });
-
-        // Performance optimization: Debounced scroll handler
-        let ticking = false;
-        function updateOnScroll() {
-            // Header effect and parallax updates here
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateOnScroll);
-                ticking = true;
-            }
         });
     </script>
 </body>
