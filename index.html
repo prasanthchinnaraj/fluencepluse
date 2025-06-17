@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluence Pluse - Premium Influencer Marketing Platform</title>
+    <title>FluencePulse - Premium Influencer Marketing Platform</title>
     <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea;'/><stop offset='100%25' style='stop-color:%23764ba2;'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23g)'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -454,6 +454,8 @@
         .contact-info p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.8; }
         .contact-details { list-style: none; }
         .contact-details li { display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem; }
+        .contact-details li a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+        .contact-details li a:hover { color: var(--primary-start); }
         .contact-details i { margin-right: 1rem; width: 20px; color: var(--primary-start); }
         
         .contact-form {
@@ -465,7 +467,11 @@
         }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        .form-group input, .form-group textarea {
+        
+        /* --- START: FONT FIX --- */
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
             width: 100%;
             padding: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -473,9 +479,16 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-light);
             font-size: 1rem;
+            font-family: inherit; /* This ensures all form fields use the 'Inter' font */
             transition: all 0.3s ease;
         }
-          /* --- START: Custom Select Dropdown Styling --- */
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        /* --- END: FONT FIX --- */
+        
         .select-wrapper {
             position: relative;
         }
@@ -483,14 +496,6 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
             cursor: pointer;
         }
         .form-group select option {
@@ -516,8 +521,6 @@
             color: rgba(255, 255, 255, 0.5);
             pointer-events: none;
         }
-        /* --- END: Custom Select Dropdown Styling --- */
-        
         
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -549,10 +552,98 @@
         .footer-section a { color: #a0aec0; text-decoration: none; margin-bottom: 0.75rem; display: block; transition: color 0.3s ease; }
         .footer-section a:hover { color: var(--primary-start); }
         .footer-socials { display: flex; gap: 1rem; }
-        .footer-socials a { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; font-size: 1rem; transition: background 0.3s ease; }
+        .footer-socials a { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; font-size: 1.2rem; transition: background 0.3s ease; }
         .footer-socials a:hover { background: var(--primary-start); }
         .footer-bottom { border-top: 1px solid #2d3748; padding-top: 2rem; text-align: center; color: #a0aec0; }
         
+        /* --- START: Legal Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(23, 32, 44, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            text-align: left;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            line-height: 1;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .modal-close:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.5rem;
+        }
+        .modal-content h3:first-of-type {
+            margin-top: 0;
+        }
+        .modal-content p, .modal-content li {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .modal-content ol {
+            padding-left: 1.5rem;
+        }
+        .modal-content ol li::marker {
+            font-weight: bold;
+        }
+        /* --- END: Legal Modal Styles --- */
+
         /* --- START: Mobile Responsiveness --- */
         @media (max-width: 992px) {
             .platform-content { grid-template-columns: 1fr; }
@@ -581,6 +672,8 @@
             .contact-content { grid-template-columns: 1fr; text-align: center; }
             .contact-info { text-align: center; }
             .contact-details li { justify-content: center; }
+            
+            .modal-content { padding: 1.5rem; }
 
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .footer-socials { justify-content: center; }
@@ -621,13 +714,14 @@
 
     <header id="header">
         <nav>
-            <div class="logo">Fluence Pluse</div>
+            <div class="logo">FluencePulse</div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#influencers">For Influencers</a></li>
                 <li><a href="#brands">For Brands</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="open-legal-modal">Legal</a></li>
             </ul>
             <a href="#contact" class="cta-btn">Get Started</a>
             <!-- Mobile Nav Toggle Button -->
@@ -642,7 +736,7 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Connect. Create. Conquer.</h1>
-                    <p>The ultimate platform connecting brands with authentic influencers. Drive real engagement and achieve unprecedented marketing success.</p>
+                    <p>At FluencePulse, we help brands cut through the noise and connect with the right target audience through the power of social media influencers.</p>
                     <div class="hero-buttons">
                         <a href="#influencers" class="btn-primary">I'm an Influencer</a>
                         <a href="#brands" class="btn-secondary">I'm a Brand</a>
@@ -684,19 +778,19 @@
                 </div>
                 <div class="features-grid">
                     <div class="feature-card anim-stagger">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Advanced Analytics</h3>
-                        <p>Track performance with real-time data insights and comprehensive reporting tools.</p>
+                        <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Trustable Brand Partnerships</h3>
+                        <p>We vet every brand to ensure you collaborate with reputable partners that respect your creativity.</p>
                     </div>
                     <div class="feature-card anim-stagger">
-                        <div class="feature-icon"><i class="fas fa-magic"></i></div>
-                        <h3>AI-Powered Matching</h3>
-                        <p>Our algorithm connects brands with perfect influencers based on audience and brand alignment.</p>
+                        <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Frequent Campaigns</h3>
+                        <p>Engage with a steady stream of opportunities from top brands looking for your unique voice.</p>
                     </div>
                     <div class="feature-card anim-stagger">
                         <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>Secure & Automated</h3>
-                        <p>Protected transactions with escrow, automated payments, and transparent pricing.</p>
+                        <h3>Secure & Fast Payment</h3>
+                        <p>Protected transactions, automated payments, and transparent contracts give you peace of mind.</p>
                     </div>
                 </div>
             </div>
@@ -709,9 +803,9 @@
                         <div class="phone-mockup">
                             <div class="phone-screen">
                                 <div class="notification-card">
-                                    <div class="logo">Fluence Pluse</div>
+                                    <div class="logo">FluencePulse</div>
                                     <h4>New Partnership!</h4>
-                                    <p>Nike wants to collaborate on their new sneaker launch.</p>
+                                    <p>A top brand wants to collaborate on their new launch.</p>
                                     <a href="#" class="cta-btn" style="margin-top: 1rem;">View Offer</a>
                                 </div>
                             </div>
@@ -721,9 +815,9 @@
                         <h2>For Influencers</h2>
                         <p>Transform your passion into profit. Connect with premium brands, negotiate fair rates, and build lasting partnerships that align with your values.</p>
                         <ul class="platform-features">
-                            <li><i class="fas fa-check-circle"></i> Direct brand partnerships</li>
-                            <li><i class="fas fa-check-circle"></i> Transparent pricing control</li>
-                            <li><i class="fas fa-check-circle"></i> Secure & fast payments</li>
+                            <li><i class="fas fa-check-circle"></i> Secure & fast payment</li>
+                            <li><i class="fas fa-check-circle"></i> Frequent campaigns</li>
+                            <li><i class="fas fa-check-circle"></i> Trustable brand partnership</li>
                         </ul>
                         <a href="#contact" class="cta-btn">Join as Influencer</a>
                     </div>
@@ -758,11 +852,11 @@
                     </div>
                     <div class="platform-text">
                         <h2>For Brands</h2>
-                        <p>Scale your marketing with authentic influencer partnerships. Access detailed analytics, manage campaigns efficiently, and achieve measurable growth.</p>
+                        <p>Scale your marketing with authentic influencer partnerships. We help you manage campaigns efficiently and achieve measurable growth.</p>
                         <ul class="platform-features">
-                            <li><i class="fas fa-check-circle"></i> Curated influencer database</li>
-                            <li><i class="fas fa-check-circle"></i> Real-time campaign tracking</li>
-                            <li><i class="fas fa-check-circle"></i> Guaranteed ROI measurement</li>
+                            <li><i class="fas fa-check-circle"></i> Authentic Influencer Discovery</li>
+                            <li><i class="fas fa-check-circle"></i> Dedicated Campaign Management</li>
+                            <li><i class="fas fa-check-circle"></i> Comprehensive Performance Reports</li>
                         </ul>
                         <a href="#contact" class="cta-btn">Start a Campaign</a>
                     </div>
@@ -777,14 +871,14 @@
                         <h2>Let's Get Started</h2>
                         <p>Ready to revolutionize your marketing? Fill out the form or contact us directly. We're here to help you succeed.</p>
                         <ul class="contact-details">
-                            <li><i class="fas fa-envelope"></i> hello@Fluence Pluse.com</li>
-                            <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                            <li><a href="mailto:fluencepulse@gmail.com"><i class="fas fa-envelope"></i> fluencepulse@gmail.com</a></li>
+                            <li><a href="tel:+919884742596"><i class="fas fa-phone"></i> +91 98847 42596</a></li>
+                            <li><a href="https://wa.me/919884742596" target="_blank"><i class="fab fa-whatsapp"></i> +91 98847 42596</a></li>
                         </ul>
                     </div>
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="userType">I am a...</label>
-                            <!-- Wrapped select in a div for custom styling -->
                             <div class="select-wrapper">
                                 <select id="userType" name="userType" required>
                                     <option value="" disabled selected>Select your role</option>
@@ -802,8 +896,8 @@
                             <input type="email" id="email" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Tell us about your goals</label>
-                            <textarea id="message" name="message" rows="3" placeholder="What are you looking to achieve?" required></textarea>
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Tell us about your brand and what you're looking to achieve." required></textarea>
                         </div>
                         <button type="submit" class="submit-btn">Send Message</button>
                         <div id="form-feedback"></div>
@@ -817,11 +911,12 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Fluence Pluse</h3>
+                    <h3>FluencePulse</h3>
                     <p>Empowering authentic connections in digital marketing.</p>
                      <div class="footer-socials">
+                        <a href="https://wa.me/919884742596" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
@@ -834,20 +929,46 @@
                 <div class="footer-section">
                     <h3>Company</h3>
                     <a href="#">About Us</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Contact</a>
+                    <a href="#contact">Contact</a>
                 </div>
                  <div class="footer-section">
                     <h3>Legal</h3>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="#" class="open-legal-modal">Terms & Policy</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Fluence Pluse. All rights reserved.</p>
+                <p>&copy; 2025 FluencePulse. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- START: Legal Modal HTML -->
+    <div class="modal-overlay" id="legal-modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-legal-modal" aria-label="Close modal">&times;</button>
+            <h2>Legal &amp; Policy Information</h2>
+
+            <h3>Intellectual Property</h3>
+            <p>All content, designs, logos, images, text, graphics, and other materials displayed on this website are the intellectual property of Fluencepulse, unless otherwise stated.</p>
+            <p>Unauthorized use, reproduction, distribution, or modification of any materials on this site for any purpose without express written permission from Fluencepulse is strictly prohibited and may result in legal action.</p>
+            <p>Fluencepulse respects the intellectual property rights of others. If you believe any content on this website infringes your copyright, please contact us immediately at: <br><strong>Email:</strong> fluencepulse@gmail.com <br><strong>Phone:</strong> +91 98847 42596</p>
+            
+            <h3>Terms and Conditions</h3>
+            <ol>
+                <li><strong>Acceptance of Terms</strong><br>By accessing or using the Fluencepulse website, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use the website.</li>
+                <li><strong>Purpose</strong><br>Fluencepulse is a platform designed to connect brands and influencers. The website provides content, promotional information, and facilitates professional networking between brands and influencers.</li>
+                <li><strong>No User Accounts Required</strong><br>You are not required to create an account to access or browse Fluencepulse.</li>
+                <li><strong>Privacy and Information Sharing</strong><br>We do not share your personal information with third parties, except when a verified brand or influencer requests to connect with another party via Fluencepulse. All such requests must go through our official contact point: Email: fluencepulse@gmail.com, Mobile: +91 98847 42596. Fluencepulse does not take responsibility for connections or transactions made outside our official communication channels. Users are advised to verify all contact requests directly with us.</li>
+                <li><strong>User Conduct</strong><br>You agree not to use the site for unlawful, deceptive, or harmful purposes; post or transmit any misleading, offensive, or unauthorized content; attempt to gain unauthorized access to the site’s backend or data; or impersonate any brand or individual. We reserve the right to restrict access to any user who violates these rules.</li>
+                <li><strong>Intellectual Property</strong><br>All content on Fluencepulse (including text, images, design, logos, and branding) is the property of Fluencepulse unless otherwise stated. You may not copy, distribute, or reuse any material without our prior written consent.</li>
+                <li><strong>Limitation of Liability</strong><br>Fluencepulse is not liable for misuse of the website or its content, third-party fraud or impersonation, or business or partnership decisions made outside the platform. Use of the website is at your own discretion and risk.</li>
+                <li><strong>Termination of Access</strong><br>We reserve the right to block or ban users from the website at our sole discretion, especially in cases of fraud, impersonation, or misconduct.</li>
+                <li><strong>Changes to Terms</strong><br>Fluencepulse may update these Terms and Conditions from time to time. Continued use of the site indicates acceptance of the latest version of the terms.</li>
+                <li><strong>Governing Law</strong><br>These Terms and Conditions shall be governed and interpreted in accordance with the laws of India. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of Indian courts.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- END: Legal Modal HTML -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -864,7 +985,6 @@
             if (navToggle) {
                 navToggle.addEventListener('click', () => {
                     navLinks.classList.toggle('active');
-                    // Toggle hamburger icon to a close icon (X)
                     const icon = navToggle.querySelector('i');
                     icon.classList.toggle('fa-bars');
                     icon.classList.toggle('fa-times');
@@ -873,14 +993,17 @@
             
             // Close mobile menu when a link is clicked
             document.querySelectorAll('#nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        const icon = navToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                });
+                // We don't close the menu if the legal modal link is clicked
+                if (!link.classList.contains('open-legal-modal')) {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            const icon = navToggle.querySelector('i');
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    });
+                }
             });
             // --- END: Mobile Navigation Toggle ---
 
@@ -925,8 +1048,6 @@
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const submitBtn = this.querySelector('.submit-btn');
-
-                // Simulate form submission
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
 
@@ -942,6 +1063,52 @@
                     }, 5000);
                 }, 1500);
             });
+
+            // --- START: Legal Modal Logic ---
+            const openModalTriggers = document.querySelectorAll('.open-legal-modal');
+            const closeModalBtn = document.getElementById('close-legal-modal');
+            const legalModalOverlay = document.getElementById('legal-modal-overlay');
+
+            const openModal = () => {
+                legalModalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                legalModalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            openModalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // If mobile menu is open, close it first
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = navToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                    openModal();
+                });
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            legalModalOverlay.addEventListener('click', (e) => {
+                // Close the modal only if the overlay itself is clicked, not its content
+                if (e.target === legalModalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Optional: Close modal with the 'Escape' key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && legalModalOverlay.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+            // --- END: Legal Modal Logic ---
         });
     </script>
 </body>
