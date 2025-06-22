@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FluencePulse - Premium Influencer Marketing Platform</title>
     <!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea;'/><stop offset='100%25' style='stop-color:%23764ba2;'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23g)'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea;'/><stop offset='100%25' style='stop-color:%23764ba2;'/></linearGradient></defs><circle cx='50' cy='50' r='50' fill='url(%23g)'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Updated Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         :root {
             --primary-start: #667eea;
@@ -243,7 +244,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
+            overflow: hidden; /* FIX: FOR SMOOTH CORNERS */
         }
 
         .btn-primary {
@@ -277,7 +279,6 @@
             transform: rotateY(-15deg) rotateX(10deg);
         }
 
-        /* --- START: UPDATED CARD STYLES --- */
         .card {
             position: absolute;
             width: 240px;
@@ -295,7 +296,6 @@
         }
         .card:hover { transform: translateY(-10px) scale(1.05); z-index: 10; }
         
-        /* Social Card Specifics */
         .card-header { 
             display: flex; 
             align-items: center; 
@@ -347,7 +347,6 @@
             color: var(--primary-start);
             opacity: 0.8;
         }
-        /* --- END: UPDATED CARD STYLES --- */
 
         .card:nth-child(1) { top: 0; left: 0; animation: floatCard 8s ease-in-out infinite; }
         .card:nth-child(2) { top: 80px; right: 0; animation: floatCard 10s ease-in-out infinite 2s; }
@@ -361,7 +360,6 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
         
-        /* Section General Styles */
         .section {
             padding: 6rem 0;
             opacity: 0;
@@ -384,7 +382,6 @@
         .section-title h2 { font-size: 2.8rem; font-weight: 800; color: var(--text-dark); margin-bottom: 1rem; }
         .section-title p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
         
-        /* Features Section */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -430,7 +427,6 @@
         .feature-card p { color: var(--text-muted); line-height: 1.7; }
         .feature-card:hover .feature-icon { transform: scale(1.1) rotate(-10deg); }
 
-        /* Platform Sections */
         .platform-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -444,7 +440,6 @@
         .platform-features li { padding: 0.5rem 0; display: flex; align-items: center; color: var(--text-muted); font-weight: 500; }
         .platform-features li i { color: var(--primary-start); margin-right: 1rem; width: 20px; font-size: 1.2rem; }
         
-        /* For Influencers Visual */
         .phone-mockup {
             background: #111;
             padding: 1rem;
@@ -475,7 +470,6 @@
         .notification-card h4 { margin-top: 1rem; font-size: 1.2rem; }
         .notification-card p { margin-top: 0.5rem; color: var(--text-muted); }
 
-        /* For Brands Visual */
         .dashboard-mockup {
             background: white;
             border-radius: var(--radius-lg);
@@ -493,7 +487,6 @@
         .progress-bar { height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
         .progress { height: 100%; width: 75%; background: linear-gradient(90deg, var(--primary-start), var(--primary-end)); }
         
-        /* Contact Section */
         .contact {
             padding: 6rem 0;
             background: linear-gradient(135deg, #1f2937, var(--bg-dark));
@@ -518,7 +511,6 @@
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
         
-        /* --- START: FONT FIX --- */
         .form-group input, 
         .form-group textarea, 
         .form-group select {
@@ -529,7 +521,7 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-light);
             font-size: 1rem;
-            font-family: inherit; /* This ensures all form fields use the 'Inter' font */
+            font-family: inherit;
             transition: all 0.3s ease;
         }
 
@@ -537,7 +529,6 @@
             resize: vertical;
             min-height: 80px;
         }
-        /* --- END: FONT FIX --- */
         
         .select-wrapper {
             position: relative;
@@ -561,7 +552,7 @@
             color: rgba(255, 255, 255, 0.5);
         }
         .select-wrapper::after {
-            content: '\f078'; /* Font Awesome down arrow */
+            content: '\f078'; 
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -594,7 +585,6 @@
         .submit-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
         #form-feedback { text-align: center; margin-top: 1rem; font-weight: 500; }
 
-        /* Footer */
         footer { background: var(--bg-dark); color: var(--text-light); padding: 4rem 0 2rem; }
         .footer-content { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; }
         .footer-section h3 { margin-bottom: 1.5rem; color: white; }
@@ -606,7 +596,6 @@
         .footer-socials a:hover { background: var(--primary-start); }
         .footer-bottom { border-top: 1px solid #2d3748; padding-top: 2rem; text-align: center; color: #a0aec0; }
         
-        /* --- START: Legal Modal Styles --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -623,12 +612,10 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
-
         .modal-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .modal-content {
             background: white;
             padding: 2.5rem;
@@ -643,11 +630,9 @@
             transform: scale(0.95);
             transition: transform 0.3s ease;
         }
-
         .modal-overlay.active .modal-content {
             transform: scale(1);
         }
-
         .modal-close {
             position: absolute;
             top: 1rem;
@@ -663,14 +648,12 @@
         .modal-close:hover {
             color: var(--text-dark);
         }
-
         .modal-content h2 {
             font-size: 2rem;
             color: var(--text-dark);
             margin-bottom: 2rem;
             text-align: center;
         }
-
         .modal-content h3 {
             font-size: 1.5rem;
             color: var(--text-dark);
@@ -692,9 +675,7 @@
         .modal-content ol li::marker {
             font-weight: bold;
         }
-        /* --- END: Legal Modal Styles --- */
 
-        /* --- START: Mobile Responsiveness --- */
         @media (max-width: 992px) {
             .platform-content { grid-template-columns: 1fr; }
             .platform-content--reverse .platform-text { order: 0; }
@@ -702,7 +683,7 @@
             
             .nav-links { display: none; }
             .mobile-nav-toggle { display: block; }
-            .nav-container.cta-btn { display: none; } /* Hide the 'Get Started' button in the header on tablets */
+            .nav-container.cta-btn { display: none; }
         }
         
         @media (max-width: 768px) {
@@ -711,8 +692,25 @@
             .hero-text { text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .hero-text p { margin-left: auto; margin-right: auto; }
-            .hero-buttons { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-            .btn-secondary { margin-left: 0; }
+            
+            /* FIX: UPDATED MOBILE BUTTON LAYOUT */
+            .hero-buttons { 
+                display: flex; 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 1rem; 
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+            .btn-secondary { 
+                margin-left: 0; 
+            }
+            
             .floating-cards { display: none; }
             
             .section-title h2 { font-size: 2.2rem; }
@@ -728,14 +726,13 @@
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .footer-socials { justify-content: center; }
             
-            .cta-btn { display: none; } /* Hides main Get Started button */
-            .mobile-nav-toggle { display: block; z-index: 1001;} /* Ensure it's on top */
+            .cta-btn { display: none; }
+            .mobile-nav-toggle { display: block; z-index: 1001;}
             
-            /* The mobile menu itself */
             .nav-links {
                 position: fixed;
                 top: 0;
-                right: -100%; /* Start off-screen */
+                right: -100%;
                 width: 70%;
                 height: 100vh;
                 background: white;
@@ -746,14 +743,13 @@
                 gap: 2.5rem;
                 transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
                 z-index: 1000;
-                display: flex; /* Make it a flex container */
+                display: flex;
             }
             .nav-links.active {
-                right: 0; /* Slide in */
+                right: 0;
             }
             .nav-links a { font-size: 1.2rem; }
         }
-        /* --- END: Mobile Responsiveness --- */
     </style>
 </head>
 <body>
@@ -774,7 +770,6 @@
                 
             </ul>
             <a href="#contact" class="cta-btn">Get Started</a>
-            <!-- Mobile Nav Toggle Button -->
             <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
@@ -794,11 +789,10 @@
                 </div>
                 <div class="hero-visual">
                     <div class="floating-cards">
-                         <!-- START: UPDATED FLOATING CARDS -->
                          <div class="card card-social">
                             <div class="card-header">
                                 <div class="social-icon-wrapper instagram">
-                                    <i class="fab fa-instagram"></i>
+                                    <i class="fa-brands fa-instagram"></i>
                                 </div>
                                 <div class="card-info">
                                     <h4>Sponsored Post</h4>
@@ -813,7 +807,7 @@
                         <div class="card card-social">
                              <div class="card-header">
                                 <div class="social-icon-wrapper youtube">
-                                    <i class="fab fa-youtube"></i>
+                                    <i class="fa-brands fa-youtube"></i>
                                 </div>
                                 <div class="card-info">
                                     <h4>Brand Integration</h4>
@@ -828,7 +822,7 @@
                         <div class="card card-social">
                              <div class="card-header">
                                 <div class="social-icon-wrapper facebook">
-                                    <i class="fab fa-facebook"></i>
+                                    <i class="fa-brands fa-facebook"></i>
                                 </div>
                                 <div class="card-info">
                                     <h4>Ad Campaign</h4>
@@ -840,7 +834,6 @@
                                 <span><i class="fas fa-chart-line"></i> 3.5x ROI</span>
                             </div>
                         </div>
-                        <!-- END: UPDATED FLOATING CARDS -->
                     </div>
                 </div>
             </div>
@@ -882,7 +875,7 @@
                                     <div class="logo">FluencePulse</div>
                                     <h4>New Partnership!</h4>
                                     <p>A top brand wants to collaborate on their new launch.</p>
-                                    <a href="#" class="cta-btn" style="margin-top: 1rem;">View Offer</a>
+                                    <a href="#contact" class="cta-btn" style="margin-top: 1rem;">Express Interest</a>
                                 </div>
                             </div>
                         </div>
@@ -949,7 +942,7 @@
                         <ul class="contact-details">
                             <li><a href="mailto:fluencepulse@gmail.com"><i class="fas fa-envelope"></i> fluencepulse@gmail.com</a></li>
                             <li><a href="tel:+919884742596"><i class="fas fa-phone"></i> +91 98847 42596</a></li>
-                            <li><a href="https://wa.me/919884742596" target="_blank"><i class="fab fa-whatsapp"></i> +91 98847 42596</a></li>
+                            <li><a href="https://wa.me/919884742596" target="_blank"><i class="fa-brands fa-whatsapp"></i> +91 98847 42596</a></li>
                         </ul>
                     </div>
                     <form class="contact-form" id="contactForm">
@@ -990,10 +983,11 @@
                     <h3>FluencePulse</h3>
                     <p>Empowering authentic connections in digital marketing.</p>
                      <div class="footer-socials">
-                        <a href="https://wa.me/919884742596" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/919884742596" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/fluencepulse?igsh=ZHVobXNwZzFpbG41" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://x.com/fluencepulse?t=3MVwxfCx02dofYKyWxnwUw&s=09" target="_blank" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/share/1BucTprFNx/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/in/fluence-pulse-79b8a536b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -1013,7 +1007,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 FluencePulse. All rights reserved.</p>
+                <p>&copy; 2025 FluencePulse. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1021,8 +1015,8 @@
     <!-- START: Legal Modal HTML -->
     <div class="modal-overlay" id="legal-modal-overlay">
         <div class="modal-content">
-            <button class="modal-close" id="close-legal-modal" aria-label="Close modal">×</button>
-            <h2>Legal & Policy Information</h2>
+            <button class="modal-close" id="close-legal-modal" aria-label="Close modal">&times;</button>
+            <h2>Legal &amp; Policy Information</h2>
 
             <h3>Intellectual Property</h3>
             <p>All content, designs, logos, images, text, graphics, and other materials displayed on this website are the intellectual property of Fluencepulse, unless otherwise stated.</p>
@@ -1067,9 +1061,7 @@
                 });
             }
             
-            // Close mobile menu when a link is clicked
             document.querySelectorAll('#nav-links a').forEach(link => {
-                // We don't close the menu if the legal modal link is clicked
                 if (!link.classList.contains('open-legal-modal')) {
                     link.addEventListener('click', () => {
                         if (navLinks.classList.contains('active')) {
@@ -1116,29 +1108,54 @@
             document.querySelectorAll('.anim-stagger').forEach(el => {
                  staggerObserver.observe(el);
             });
-
-            // Contact form handling
-            const contactForm = document.getElementById('contactForm');
-            const formFeedback = document.getElementById('form-feedback');
-
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const submitBtn = this.querySelector('.submit-btn');
+            
+            // --- START: AJAX FORM SUBMISSION LOGIC ---
+            async function handleFormSubmit(event) {
+                event.preventDefault(); // Stop the form from redirecting
+                const form = event.target;
+                const feedbackEl = document.getElementById('form-feedback');
+                const submitBtn = form.querySelector('.submit-btn');
+                
+                const data = new FormData(form);
+                
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
+                feedbackEl.textContent = '';
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
 
-                setTimeout(() => {
-                    this.reset();
+                    if (response.ok) {
+                        feedbackEl.textContent = "Thank you! Your message has been sent.";
+                        feedbackEl.style.color = '#48bb78';
+                        form.reset();
+                    } else {
+                        feedbackEl.textContent = "Oops! There was a problem submitting your form.";
+                        feedbackEl.style.color = '#e53e3e';
+                    }
+                } catch (error) {
+                    feedbackEl.textContent = "Oops! There was a network error. Please try again.";
+                    feedbackEl.style.color = '#e53e3e';
+                } finally {
                     submitBtn.textContent = 'Send Message';
                     submitBtn.disabled = false;
-                    formFeedback.textContent = 'Thank you! Your message has been sent.';
-                    formFeedback.style.color = '#48bb78'; // Green for success
-                    
                     setTimeout(() => {
-                        formFeedback.textContent = '';
+                        feedbackEl.textContent = '';
                     }, 5000);
-                }, 1500);
-            });
+                }
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            contactForm.action = 'https://formspree.io/f/xnnvgarl';
+            contactForm.method = 'POST';
+            contactForm.addEventListener('submit', handleFormSubmit);
+            // --- END: AJAX FORM SUBMISSION LOGIC ---
 
             // --- START: Legal Modal Logic ---
             const openModalTriggers = document.querySelectorAll('.open-legal-modal');
@@ -1158,7 +1175,6 @@
             openModalTriggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // If mobile menu is open, close it first
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         const icon = navToggle.querySelector('i');
@@ -1172,13 +1188,11 @@
             closeModalBtn.addEventListener('click', closeModal);
 
             legalModalOverlay.addEventListener('click', (e) => {
-                // Close the modal only if the overlay itself is clicked, not its content
                 if (e.target === legalModalOverlay) {
                     closeModal();
                 }
             });
 
-            // Optional: Close modal with the 'Escape' key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && legalModalOverlay.classList.contains('active')) {
                     closeModal();
