@@ -128,6 +128,7 @@
 
         .nav-links {
             display: flex;
+            align-items: center; /* FIX: Align items vertically */
             list-style: none;
             gap: 2rem;
         }
@@ -178,8 +179,21 @@
             transform: translateY(-3px) scale(1.05);
             box-shadow: var(--shadow-lg);
         }
-
-        /* --- START: Mobile Navigation --- */
+        
+        /* FIX: Added styles to ensure the CTA button looks correct on desktop when inside the nav list */
+        .nav-cta-item {
+            line-height: 1; /* Prevents extra vertical space from the list item */
+        }
+        .nav-links .cta-btn {
+            padding-bottom: 0.7rem; /* Override default link padding */
+        }
+        .nav-links .cta-btn:hover {
+            color: white !important; /* Keep text color white on hover */
+        }
+        .nav-links .cta-btn::after {
+            display: none; /* Disable the underline hover effect for the button */
+        }
+        
         .mobile-nav-toggle {
             display: none;
             background: none;
@@ -189,7 +203,6 @@
             cursor: pointer;
             z-index: 1100;
         }
-        /* --- END: Mobile Navigation --- */
 
         /* Hero Section */
         .hero {
@@ -245,7 +258,7 @@
             text-decoration: none;
             display: inline-block;
             border: 1px solid transparent;
-            overflow: hidden; /* FIX: FOR SMOOTH CORNERS */
+            overflow: hidden; 
         }
 
         .btn-primary {
@@ -676,14 +689,47 @@
             font-weight: bold;
         }
 
+        /* FIX: CONSOLIDATED AND CORRECTED MOBILE NAVIGATION STYLES */
         @media (max-width: 992px) {
             .platform-content { grid-template-columns: 1fr; }
             .platform-content--reverse .platform-text { order: 0; }
             .phone-mockup, .dashboard-mockup { transform: rotate(0); margin-top: 3rem; max-width: 450px; margin-left: auto; margin-right: auto; }
             
-            .nav-links { display: none; }
-            .mobile-nav-toggle { display: block; }
-            .nav-container.cta-btn { display: none; }
+            /* Show hamburger menu icon */
+            .mobile-nav-toggle { 
+                display: block; 
+            }
+            
+            /* Hide the entire nav links container from the header flow and turn it into a slide-out menu */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 320px;
+                height: 100vh;
+                background: white;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+                z-index: 1000;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a { 
+                font-size: 1.2rem; 
+            }
+            
+            .nav-cta-item {
+                margin-top: 1rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -693,7 +739,6 @@
             .hero-text h1 { font-size: 2.5rem; }
             .hero-text p { margin-left: auto; margin-right: auto; }
             
-            /* FIX: UPDATED MOBILE BUTTON LAYOUT */
             .hero-buttons { 
                 display: flex; 
                 flex-direction: column; 
@@ -725,30 +770,8 @@
 
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .footer-socials { justify-content: center; }
-            
-            .cta-btn { display: none; }
-            .mobile-nav-toggle { display: block; z-index: 1001;}
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: white;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2.5rem;
-                transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-                z-index: 1000;
-                display: flex;
-            }
-            .nav-links.active {
-                right: 0;
-            }
-            .nav-links a { font-size: 1.2rem; }
+
+            /* FIX: Removed old, conflicting mobile nav styles from here as they are now handled in the 992px media query */
         }
     </style>
 </head>
@@ -761,15 +784,16 @@
     <header id="header">
         <nav>
             <div class="logo">FluencePulse</div>
+            <!-- FIX: Moved the "Get Started" button inside the nav links list so it appears in the mobile menu -->
             <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#influencers">For Influencers</a></li>
                 <li><a href="#brands">For Brands</a></li>
                 <li><a href="#contact">Contact</a></li>
-                
+                <li class="nav-cta-item"><a href="#contact" class="cta-btn">Get Started</a></li>
             </ul>
-            <a href="#contact" class="cta-btn">Get Started</a>
+            <!-- FIX: The standalone button is no longer needed -->
             <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
@@ -1007,16 +1031,15 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 FluencePulse. All rights reserved.</p>
+                <p>© 2025 FluencePulse. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- START: Legal Modal HTML -->
     <div class="modal-overlay" id="legal-modal-overlay">
         <div class="modal-content">
-            <button class="modal-close" id="close-legal-modal" aria-label="Close modal">&times;</button>
-            <h2>Legal &amp; Policy Information</h2>
+            <button class="modal-close" id="close-legal-modal" aria-label="Close modal">×</button>
+            <h2>Legal & Policy Information</h2>
 
             <h3>Intellectual Property</h3>
             <p>All content, designs, logos, images, text, graphics, and other materials displayed on this website are the intellectual property of Fluencepulse, unless otherwise stated.</p>
@@ -1038,7 +1061,6 @@
             </ol>
         </div>
     </div>
-    <!-- END: Legal Modal HTML -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1051,7 +1073,7 @@
                 header.classList.toggle('scrolled', window.scrollY > 50);
             });
 
-            // --- START: Mobile Navigation Toggle ---
+            // Mobile Navigation Toggle
             if (navToggle) {
                 navToggle.addEventListener('click', () => {
                     navLinks.classList.toggle('active');
@@ -1061,6 +1083,7 @@
                 });
             }
             
+            // Close mobile menu when a link is clicked
             document.querySelectorAll('#nav-links a').forEach(link => {
                 if (!link.classList.contains('open-legal-modal')) {
                     link.addEventListener('click', () => {
@@ -1073,7 +1096,6 @@
                     });
                 }
             });
-            // --- END: Mobile Navigation Toggle ---
 
             // Intersection Observer for scroll animations
             const observerOptions = {
@@ -1109,9 +1131,9 @@
                  staggerObserver.observe(el);
             });
             
-            // --- START: AJAX FORM SUBMISSION LOGIC ---
+            // AJAX FORM SUBMISSION LOGIC
             async function handleFormSubmit(event) {
-                event.preventDefault(); // Stop the form from redirecting
+                event.preventDefault(); 
                 const form = event.target;
                 const feedbackEl = document.getElementById('form-feedback');
                 const submitBtn = form.querySelector('.submit-btn');
@@ -1155,9 +1177,8 @@
             contactForm.action = 'https://formspree.io/f/xnnvgarl';
             contactForm.method = 'POST';
             contactForm.addEventListener('submit', handleFormSubmit);
-            // --- END: AJAX FORM SUBMISSION LOGIC ---
 
-            // --- START: Legal Modal Logic ---
+            // Legal Modal Logic
             const openModalTriggers = document.querySelectorAll('.open-legal-modal');
             const closeModalBtn = document.getElementById('close-legal-modal');
             const legalModalOverlay = document.getElementById('legal-modal-overlay');
@@ -1198,7 +1219,6 @@
                     closeModal();
                 }
             });
-            // --- END: Legal Modal Logic ---
         });
     </script>
 </body>
